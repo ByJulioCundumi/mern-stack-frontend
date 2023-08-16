@@ -1,13 +1,24 @@
 import "./login.css";
 import {useForm} from "react-hook-form"
 import {Link, useNavigate} from "react-router-dom"
+import { AuthContext } from "../../context/authContext";
+import { useContext, useEffect } from "react";
 
 function Login(){
-    const navigate = useNavigate()
+    const {user, loginRequest, isAuthenticated, loginMessage} = useContext(AuthContext)
+
     const {register, handleSubmit, formState: {errors}, watch} = useForm()
-    const onSubmit = handleSubmit((data)=>{
-        navigate("/register")
+    const navigate = useNavigate()
+
+    const onSubmit = handleSubmit(async (data)=>{
+        loginRequest(data)
     })
+
+    useEffect(()=>{
+        if(isAuthenticated){
+            navigate("/tasks")
+        }
+    },[isAuthenticated])
 
     return <>
         <div className="container">
@@ -15,6 +26,7 @@ function Login(){
                 <div className="col-12 col-md-6">
 
                 <form onSubmit={onSubmit} className="shadow px-5 py-3 rounded">
+                    {!!loginMessage && <div className="alert alert-warning text-center">{loginMessage.message}</div>}
                     <h1 className="m-3 text-center">Login</h1>
                     <div className="form-floating mt-3">
                         <input type="email" id="email" className="form-control" placeholder="" {... register("email", {
@@ -54,7 +66,7 @@ function Login(){
                     </div>
                     <Link to="/register" className="link ms-2">Create an account</Link>
                     <div className="d-flex justify-content-center mt-3 mb-3">
-                        <button type="submit" className="btn btn-dark col-4">Register</button>
+                        <button type="submit" className="btn btn-dark col-4">Login</button>
                     </div>
                 </form>
 

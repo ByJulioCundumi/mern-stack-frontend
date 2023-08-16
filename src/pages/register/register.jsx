@@ -1,15 +1,24 @@
 import "./register.css";
 import {useForm} from "react-hook-form";
-import { Link } from "react-router-dom";
-import { postRegister } from "../../api/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../context/authContext";
 
 function Register(){
+    const {user, registerRequest, isAuthenticated, registerMessage} = useContext(AuthContext)
+    const navigate = useNavigate()
+
     const {register, handleSubmit, formState: {errors}, watch } = useForm();
 
     const onSubmit = handleSubmit( async (data)=>{
-        const result = await postRegister(data)
-        console.log(result)
+        registerRequest(data)
     })
+    
+    useEffect(()=>{
+        if(isAuthenticated){
+            navigate("/tasks")
+        } 
+    },[isAuthenticated])
 
     return <>
         <div className="container">
@@ -17,6 +26,7 @@ function Register(){
                 <div className="col-12 col-md-6">
 
                 <form onSubmit={onSubmit} className="shadow px-5 py-3 rounded">
+                    {!!registerMessage && <div className="alert alert-warning text-center">{registerMessage.message}</div>}
                     <h1 className="m-3 text-center">Registro</h1>
                     <div className="form-floating mt-3">
                         <input type="text" id="username" className="form-control" placeholder="" {... register("username", {

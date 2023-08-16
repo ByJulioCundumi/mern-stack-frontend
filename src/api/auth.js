@@ -32,3 +32,15 @@ export const postLogin = async (value)=>{
         console.log(error)
     }
 }
+
+export const postLogout = async ()=>{
+    try {
+        const data = await fetch("http://localhost:3000/api/logout", {
+            method: "POST"
+        })
+        const json = await data.json()
+        return json;
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -7,9 +7,11 @@ import Login from './pages/login/login'
 import NavBar from "./components/nav/nav"
 import Footer from "./components/footer/footer"
 import {ProtectedRoutes} from "./components/authRoutes/protectedRoutes"
+import AuthProvider from "./context/authContext"
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <NavBar/>
       <Routes>
@@ -22,6 +24,7 @@ function App() {
         <Route path='/profile' element={<div>Profile page</div>}/></Routes>
       <Footer/>
     </BrowserRouter>
+    </AuthProvider>
   )
 }
 
