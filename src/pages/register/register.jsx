@@ -1,11 +1,14 @@
 import "./register.css";
 import {useForm} from "react-hook-form";
 import { Link } from "react-router-dom";
+import { postRegister } from "../../api/auth";
 
 function Register(){
     const {register, handleSubmit, formState: {errors}, watch } = useForm();
-    const onSubmit = handleSubmit((data)=>{
-        console.log(data)
+
+    const onSubmit = handleSubmit( async (data)=>{
+        const result = await postRegister(data)
+        console.log(result)
     })
 
     return <>
@@ -70,7 +73,7 @@ function Register(){
                         {errors.password && <span className="text-danger ms-3">{errors.password.message}</span>}
                     </div>
                     <div className="form-floating mt-3">
-                        <input type="confpassword" className="form-control" placeholder="" {... register("confpassword", {
+                        <input type="password" id="confpassword" className="form-control" placeholder="" {... register("confpassword", {
                             required: {
                                 value: true,
                                 message: "Please provide a password"

@@ -6,6 +6,7 @@ import Register from './pages/register/register'
 import Login from './pages/login/login'
 import NavBar from "./components/nav/nav"
 import Footer from "./components/footer/footer"
+import {ProtectedRoutes} from "./components/authRoutes/protectedRoutes"
 
 function App() {
   return (
@@ -15,11 +16,10 @@ function App() {
         <Route path='/' element={<Login/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/tasks' element={""}/>
-        <Route path='/post-task' element={""}/>
-        <Route path='/task/:id' element={""}/>
-        <Route path='/profile' element={""}/>
-      </Routes>
+        <Route path='/tasks' element={<div>Tasks page</div>}/>
+        <Route path='/post-task' element={<div>Post task page</div>}/>
+        <Route path='/task/:id' element={<div>Find task page</div>}/>
+        <Route path='/profile' element={<div>Profile page</div>}/></Routes>
       <Footer/>
     </BrowserRouter>
   )
