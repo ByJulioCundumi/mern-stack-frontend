@@ -2,7 +2,7 @@ import "./footer.css"
 
 function Footer(){
     return <>
-    <div className="bg-dark position-relative ">
+    <div className="bg-dark position-absolute button-0 col-12">
         <div className="container">
             <div className="row">
                 <div className="col">

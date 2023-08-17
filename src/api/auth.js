@@ -8,7 +8,8 @@ export const postRegister = async (value)=>{
         const data = await fetch("http://localhost:3000/api/register", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
-            body: JSON.stringify(postDTO)
+            body: JSON.stringify(postDTO),
+            
         })
 
         const json = await data.json()
@@ -23,7 +24,8 @@ export const postLogin = async (value)=>{
         const data = await fetch("http://localhost:3000/api/login", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
-            body: JSON.stringify(value)
+            body: JSON.stringify(value),
+            credentials: "include",
         })
 
         const json = await data.json()
@@ -39,6 +41,19 @@ export const postLogout = async ()=>{
             method: "POST"
         })
         const json = await data.json()
+        return json;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getVerifyToken = async ()=>{
+    try {
+        const data = await fetch("http://localhost:3000/api/verify-token",{
+            method: "GET",
+            credentials: "include"
+        })
+        const json = data.json()
         return json;
     } catch (error) {
         console.log(error)

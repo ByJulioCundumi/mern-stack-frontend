@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
-import { postLogin, postRegister, postLogout } from "../api/auth";
+import { createContext, useState, useEffect } from "react";
+import { postLogin, postRegister, postLogout, getVerifyToken } from "../api/auth";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext()
 //
@@ -8,15 +9,19 @@ const AuthProvider = ({children})=>{
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [loginMessage, setLoginMessage] = useState(null)
     const [registerMessage, setRegisterMessage] = useState(null)
+    const [loading, setLoading] = useState(true)
     //
     const loginRequest = async (data)=>{
         try {
             const result = await postLogin(data)
-            console.log(result)
             if(!!result.email){
+                console.log(result)
                 setIsAuthenticated(true)
+                setLoginMessage(null)
+                setLoading(false)
             } else {
                 setLoginMessage(result)
+                setLoading(false)
             }
         } catch (error) {
             console.log(error)
@@ -28,6 +33,7 @@ const AuthProvider = ({children})=>{
             const result = await postLogout()
             setIsAuthenticated(false)
             console.log(result)
+            setLoading(false)
         } catch (error) {
             console.log(error)
         }
@@ -40,15 +46,41 @@ const AuthProvider = ({children})=>{
                 setIsAuthenticated(true)
                 setUser(result)
                 console.log(result)
+                setRegisterMessage(null)
+                setLoading(false)
             } else{
                 setRegisterMessage(result)
+                setLoading(false)
             }
         } catch (error) {
             console.log(error)
         }
     }
     //
-    return <AuthContext.Provider value={{user, isAuthenticated, loginMessage, registerMessage, loginRequest, logoutRequest, registerRequest}}>
+    useEffect(()=>{
+
+        const validateToken = async ()=>{
+            const cookies = Cookies.get()
+            if(cookies.token){
+                const result = await getVerifyToken()
+                if(!!result.email){
+                    setIsAuthenticated(true)
+                    setUser(result)
+                    setLoading(false)
+                } else{
+                    setIsAuthenticated(false)
+                    setLoading(false)
+                }
+            } else{
+                setIsAuthenticated(false)
+                setLoading(false)
+            }
+        }
+        validateToken()
+
+    },[])
+    //
+    return <AuthContext.Provider value={{user, loading, isAuthenticated, loginMessage, registerMessage, loginRequest, logoutRequest, registerRequest}}>
             {children}
     </AuthContext.Provider>
 }

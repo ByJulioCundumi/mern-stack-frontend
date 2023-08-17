@@ -11,7 +11,10 @@ function NavBar(){
                 </button>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto">
-                        <li className="nav-item"><a href="#" className="nav-link">Home</a></li>
+                        <li className="nav-item"><Link to="/" className="nav-link">Home</Link></li>
+                        <li className="nav-item"><Link to="/profile" className="nav-link">Profile</Link></li>
+                        <li className="nav-item"><Link to="/login" className="nav-link">Login</Link></li>
+                        <li className="nav-item"><Link to="/register" className="nav-link">Register</Link></li>
                     </ul>
                     <form class="d-flex">
                         <input class="form-control" type="text" placeholder="Search" />
