@@ -13,7 +13,8 @@ const TasksProvider = ({children})=>{
 
     const getTasksRequest = async ()=>{
         const resutl = await getTasks()
-        
+        console.log(resutl)
+        setTasks(resutl)
     }
 
     const getTaskRequest = async (id)=>{

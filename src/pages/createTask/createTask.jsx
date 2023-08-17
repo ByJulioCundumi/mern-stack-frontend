@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TasksContext } from "../../context/tasksContext";
 
 const CreateTask = ()=>{
     const {register, handleSubmit, formState: {errors}} = useForm()
     const {postTaskRequest, postTasksMessage} = useContext(TasksContext)
+    const navigate = useNavigate()
 
     const onSubmit = handleSubmit((data)=>{
         postTaskRequest(data)
+        navigate("/tasks")
     })
 
     return <>
@@ -17,7 +20,7 @@ const CreateTask = ()=>{
                     <div className="col-12 col-md-6 mt-5">
 
                         <form onSubmit={onSubmit} className="shadow rounded p-4">
-                            {!!postTasksMessage && <span className="alert alert-info">{postTasksMessage}</span>}
+                            {!!postTasksMessage && <span className="alert alert-success">Task-saved</span>}
                             <h2 className="text-center">Create Task</h2>
                             <div className="form-floating mt-3">
                                 <input type="text" id="title" className="form-control" placeholder="" {... register("title", {
