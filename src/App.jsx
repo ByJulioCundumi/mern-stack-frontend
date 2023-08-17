@@ -10,25 +10,30 @@ import Profile from "./pages/profile/profile"
 import {ProtectedRoutes} from "./components/authRoutes/protectedRoutes"
 import AuthProvider from "./context/authContext"
 import CreateTask from "./pages/createTask/createTask"
+import TasksProvider from "./context/tasksContext"
 
 function App() {
   return (
       <AuthProvider>
+        <TasksProvider>
     <BrowserRouter>
       <NavBar/>
       <Routes>
         <Route path='/' element={<div className="mt-5 page">Home page</div>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+
         <Route element={<ProtectedRoutes/>}>
           <Route path='/tasks' element={<div className="mt-5 page">Tasks page</div>}/>
           <Route path='/post-task' element={<CreateTask/>}/>
           <Route path='/task/:id' element={<div className="mt-5 page">Find task page</div>}/>
           <Route path='/profile' element={<Profile/>}/>
         </Route>
+
         </Routes>
       <Footer/>
     </BrowserRouter>
+    </TasksProvider>
     </AuthProvider>
   )
 }
