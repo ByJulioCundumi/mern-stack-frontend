@@ -9,6 +9,7 @@ import Footer from "./components/footer/footer"
 import Profile from "./pages/profile/profile"
 import {ProtectedRoutes} from "./components/authRoutes/protectedRoutes"
 import AuthProvider from "./context/authContext"
+import CreateTask from "./pages/createTask/createTask"
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route element={<ProtectedRoutes/>}>
           <Route path='/tasks' element={<div className="mt-5 page">Tasks page</div>}/>
-          <Route path='/post-task' element={<div className="mt-5 page">Post task page</div>}/>
+          <Route path='/post-task' element={<CreateTask/>}/>
           <Route path='/task/:id' element={<div className="mt-5 page">Find task page</div>}/>
           <Route path='/profile' element={<Profile/>}/>
         </Route>
