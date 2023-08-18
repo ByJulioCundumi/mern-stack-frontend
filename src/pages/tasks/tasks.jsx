@@ -1,14 +1,14 @@
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { TasksContext } from "../../context/tasksContext";
 
 const Tasks = () => {
-  const { tasks, allTasksMessage, getTasksRequest } = useContext(TasksContext);
+  const { tasks, allTasksMessage, getTasksRequest, deleteTaskRequest } = useContext(TasksContext);
+  const navigate = useNavigate()
 
   useEffect(() => {
     getTasksRequest();
   }, []);
-
-  
 
   return (
     <>
@@ -25,13 +25,13 @@ const Tasks = () => {
                     <hr />
                     <b className="lead">{item.description}</b>
                     <div className="d-flex justify-content-end gap-1 mt-3">
-                        <button className="btn btn-outline-danger col-4">Delete</button>
-                        <button className="btn btn-outline-primary col-4">Edit</button>
+                        <button onClick={()=> deleteTaskRequest(item._id)} type="button" className="btn btn-outline-danger col-4">Delete</button>
+                        <button onClick={()=> navigate(`/put-task/${item._id}`)} className="btn btn-outline-primary col-4">Edit</button>
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="text-center lead">Cargando tareas...</p>
+                <p className="text-center lead">Waiting for new tasks ...</p>
               )}
               </div>
               

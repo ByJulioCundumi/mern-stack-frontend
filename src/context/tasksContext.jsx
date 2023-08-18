@@ -12,14 +12,14 @@ const TasksProvider = ({children})=>{
     const [deleteTasksMessage, setDeleteTasksMessage] = useState(null)
 
     const getTasksRequest = async ()=>{
-        const resutl = await getTasks()
-        console.log(resutl)
-        setTasks(resutl)
+        const result = await getTasks()
+        console.log(result)
+        setTasks(result)
     }
 
     const getTaskRequest = async (id)=>{
-        const resutl = await getTask(id)
-        
+        const result = await getTask(id)
+        return result;
     }
 
     const postTaskRequest = async (value)=>{
@@ -29,13 +29,14 @@ const TasksProvider = ({children})=>{
     }
 
     const putTaskRequest = async (id, value)=>{
-        const resutl = await putTask(id, value)
+        const result = await putTask(id, value)
         
     }
 
     const deleteTaskRequest = async (id)=>{
-        const resutl = await deleteTask(id)
-        
+        const result = await deleteTask(id)
+        setTasks((prev)=> prev.filter((task)=> task._id !== id))
+        console.log(tasks)
     }
 
   

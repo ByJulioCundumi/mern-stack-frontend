@@ -12,6 +12,7 @@ import AuthProvider from "./context/authContext"
 import CreateTask from "./pages/createTask/createTask"
 import TasksProvider from "./context/tasksContext"
 import Tasks from "./pages/tasks/tasks"
+import UpdateTask from "./pages/uptdateTask/updataTask"
 
 function App() {
   return (
@@ -20,14 +21,14 @@ function App() {
     <BrowserRouter>
       <NavBar/>
       <Routes>
-        <Route path='/' element={<div className="mt-5 page">Home page</div>}/>
+        <Route path='/' element={<Login/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
 
         <Route element={<ProtectedRoutes/>}>
           <Route path='/tasks' element={<Tasks/>}/>
           <Route path='/post-task' element={<CreateTask/>}/>
-          <Route path='/task/:id' element={<div className="mt-5 page">Find task page</div>}/>
+          <Route path='/put-task/:id' element={<UpdateTask/>}/>
           <Route path='/profile' element={<Profile/>}/>
         </Route>
 

@@ -17,6 +17,7 @@ const AuthProvider = ({children})=>{
             if(!!result.email){
                 console.log(result)
                 setIsAuthenticated(true)
+                setUser(result)
                 setLoginMessage(null)
                 setLoading(false)
             } else {
@@ -29,14 +30,10 @@ const AuthProvider = ({children})=>{
     }
     //
     const logoutRequest = async ()=>{
-        try {
-            const result = await postLogout()
-            setIsAuthenticated(false)
-            console.log(result)
-            setLoading(false)
-        } catch (error) {
-            console.log(error)
-        }
+        postLogout()
+        setIsAuthenticated(false)
+        setUser(null)
+        setLoading(false)
     }
     //
     const registerRequest = async (data)=>{

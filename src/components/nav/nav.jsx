@@ -4,11 +4,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
 function NavBar(){
-    const {isAuthenticated, logoutRequest} = useContext(AuthContext)
+    const {isAuthenticated, logoutRequest, user} = useContext(AuthContext)
 
     const logout = ()=>{
         logoutRequest()
     }
+    console.log(user)
 
     return <>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -25,6 +26,7 @@ function NavBar(){
                     </ul>  
                     :
                     <ul class="navbar-nav">
+                        <li className="nav-item"><Link className="text-light nav-link">Welcome, <strong>{user.username}</strong></Link></li>
                         <li className="nav-item"><Link to="/" className="nav-link">Home</Link></li>
                         <li className="nav-item"><Link to="/profile" className="nav-link">Profile</Link></li>
                         <li className="nav-item"><Link to="/tasks" className="nav-link">Tasks</Link></li>
@@ -54,6 +56,7 @@ function NavBar(){
                         <li className="nav-item"><Link to="/tasks" className="nav-link">Tasks</Link></li>
                         <li className="nav-item"><Link to="/post-task" className="nav-link">Add Task</Link></li>
                         <li className="nav-item"><Link onClick={logout} className="nav-link text-primary">Logout</Link></li>
+                        <p className=" lead mt-5">Welcome, <strong>{user.username}</strong></p>
                     </ul>
                 }
                 </div>

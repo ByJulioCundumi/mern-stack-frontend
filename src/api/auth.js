@@ -9,7 +9,7 @@ export const postRegister = async (value)=>{
             method: "POST",
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify(postDTO),
-            
+            credentials: "include"
         })
 
         const json = await data.json()
@@ -37,11 +37,11 @@ export const postLogin = async (value)=>{
 
 export const postLogout = async ()=>{
     try {
-        const data = await fetch("http://localhost:3000/api/logout", {
-            method: "POST"
+         await fetch("http://localhost:3000/api/logout", {
+            method: "POST",
+            credentials: "include"
         })
-        const json = await data.json()
-        return json;
+        return;
     } catch (error) {
         console.log(error)
     }
